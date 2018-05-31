@@ -1,7 +1,19 @@
+# coding: utf-8
+# Created on: 08.01.2016
+# Author: Roman Miroshnychenko aka Roman V.M.
+# E-mail: romanvm@yandex.ua
+"""
+Base of pytui
+:author: Emmanuel Arias
+"""
+
 import curses
 
 
 class Terminal(object):
+    """
+    Create the terminal
+    """
     def not__init__(self):
         super(Terminal, self).__init__()
         self.__screen = curses.initscr()
@@ -12,11 +24,11 @@ class Terminal(object):
         self.___hello_world()
 
     def kill_terminal(self):
-        curses.nocbreak()
-        self.__screen.keypad(False)
-        curses.echo()
-        curses.endwin()
-        exit(0)
+      curses.nocbreak()
+      self.__screen.keypad(False)
+      curses.echo()
+      curses.endwin()
+      exit(0)
 
     def ___hello_world(self):
         while 1:
@@ -46,7 +58,7 @@ class Terminal(object):
     def run(self):
         curses.wrapper(self.compile)
 
-    def set_border(self, screen):
-        # self.__screen.border()
-        screen.border()
+    def set_border(self, screen, ls=0, rs=0, ts=0,
+                   bs=0, tl=0, tr=0, bl=0, br=0):
+        screen.border(ls, rs, ts, bs, tl, tr, bl, br)
         
