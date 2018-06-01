@@ -60,5 +60,21 @@ class Terminal(object):
 
     def set_border(self, screen, ls=0, rs=0, ts=0,
                    bs=0, tl=0, tr=0, bl=0, br=0):
+        """
+        This is the border function of curses.border
+        Draw a border aorund the edges of the window. Each
+        parameter specifies the character to use for a specific
+        part of the border.
+        
+        :param curses.screen screen: curses.screen
+        :param int ls: Left Side
+        :param int rs: Right side
+        :param int ts: Top
+        :param int bs: Bottom
+        :param int tl: Upper-left corner
+        :param int tr: Upper-right corner
+        :param int bl: Bottom-left corner
+        :param int br: Bottom-right corner
+        """
         screen.border(ls, rs, ts, bs, tl, tr, bl, br)
         
