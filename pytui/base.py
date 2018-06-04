@@ -1,13 +1,14 @@
 # coding: utf-8
-# Created on: 08.01.2016
-# Author: Roman Miroshnychenko aka Roman V.M.
-# E-mail: romanvm@yandex.ua
+# Created on: 2018-06-01
+# Author: Emmanuel Arias
+# E-mail: eamanu@eamanu.com
 """
 Base of pytui
 :author: Emmanuel Arias
 """
 
 import curses
+from . import config_screen.Config_Screen
 
 
 class Terminal(object):
@@ -24,11 +25,11 @@ class Terminal(object):
         self.___hello_world()
 
     def kill_terminal(self):
-      curses.nocbreak()
-      self.__screen.keypad(False)
-      curses.echo()
-      curses.endwin()
-      exit(0)
+        curses.nocbreak()
+        self.__screen.keypad(False)
+        curses.echo()
+        curses.endwin()
+        exit(0)
 
     def ___hello_world(self):
         while 1:
@@ -46,9 +47,15 @@ class Terminal(object):
                 self.kill_terminal()
             screen.addstr('Hello World!\n')
             screen.refresh()
-            self.set_border(screen)        
+            self.set_border(screen)
 
     def compile(self, stdscr):
+        """
+        This compile the window. This function is send to
+        curses.wrapper function
+
+        :param curses.initscr stdscr: curses.initscr
+        """
         stdscr.clear()
         stdscr.refresh()
         self.___hello_world2(stdscr)
@@ -56,17 +63,23 @@ class Terminal(object):
         return 0
 
     def run(self):
+        """
+        This is the run.
+        All The framework need start here.
+        """
         curses.wrapper(self.compile)
 
-    def set_border(self, screen, ls=0, rs=0, ts=0,
-                   bs=0, tl=0, tr=0, bl=0, br=0):
+    def set_border(self, screen, **kwargs):
         """
         This is the border function of curses.border
-        Draw a border aorund the edges of the window. Each
-        parameter specifies the character to use for a specific
-        part of the border.
-        
+        Draw a border aorund the edges of the window.
+
         :param curses.screen screen: curses.screen
+
+        :param \**kwargs:
+        See below
+
+        :Keyword Arguments:
         :param int ls: Left Side
         :param int rs: Right side
         :param int ts: Top
@@ -76,5 +89,6 @@ class Terminal(object):
         :param int bl: Bottom-left corner
         :param int br: Bottom-right corner
         """
-        screen.border(ls, rs, ts, bs, tl, tr, bl, br)
+        screen.border(kwargs['ls'], kwargs['rs'], ts, bs, tl, tr, bl, br)
         
+
