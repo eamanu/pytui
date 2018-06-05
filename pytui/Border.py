@@ -9,11 +9,22 @@ class Border:
         self.bl = 0
         self.br = 0
         self.parameters = dict()
+        self.set_zero_parameters()
+
+    def set_zero_parameters(self):
+        self.parameters['ls'] = self.ls
+        self.parameters['rs'] = self.rs
+        self.parameters['ts'] = self.ts
+        self.parameters['bs'] = self.bs
+        self.parameters['tl'] = self.tl
+        self.parameters['tr'] = self.tr
+        self.parameters['bl'] = self.bl
+        self.parameters['br'] = self.br
 
     def set_parameter(self, **kwargs):
         """
         Set the parameter of the Border.
-        
+
         :param \**kwargs:
         See below
 
@@ -30,3 +41,6 @@ class Border:
         if kwargs is not None:
             for key, value in kwargs.iteritems():
                 self.parameters[key] = value
+
+    def get_parameters(self):
+        return self.parameters

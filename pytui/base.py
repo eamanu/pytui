@@ -8,13 +8,24 @@ Base of pytui
 """
 
 import curses
-from . import config_screen.Config_Screen
+# from config_screen import Config_Screen
 
 
 class Terminal(object):
     """
     Create the terminal
     """
+    def __init__(self, config_screen):
+        """
+        This is the constructor
+
+        Parameters
+        ==========
+        None
+
+        """
+        self.CScreen = config_screen
+
     def not__init__(self):
         super(Terminal, self).__init__()
         self.__screen = curses.initscr()
@@ -58,8 +69,12 @@ class Terminal(object):
         """
         stdscr.clear()
         stdscr.refresh()
-        self.___hello_world2(stdscr)
-        
+        # self.___hello_world2(stdscr)
+        print(self.CScreen.___border)
+        if self.CScreen.___border:
+            # Border is used
+            self.set_border(stdscr,
+                            self.CScreen.Border.get_parameter())
         return 0
 
     def run(self):
@@ -69,14 +84,14 @@ class Terminal(object):
         """
         curses.wrapper(self.compile)
 
-    def set_border(self, screen, **kwargs):
+    def set_border(self, screen, parameters):
         """
         This is the border function of curses.border
         Draw a border aorund the edges of the window.
 
         :param curses.screen screen: curses.screen
 
-        :param \**kwargs:
+        :param parameters:
         See below
 
         :Keyword Arguments:
@@ -89,6 +104,7 @@ class Terminal(object):
         :param int bl: Bottom-left corner
         :param int br: Bottom-right corner
         """
-        screen.border(kwargs['ls'], kwargs['rs'], ts, bs, tl, tr, bl, br)
-        
-
+        screen.border(parameters['ls'], parameters['rs'],
+                      parameters['ts'], parameters['bs'],
+                      parameters['tl'], parameters['tr'],
+                      parameters['bl'], parameters['br'])
